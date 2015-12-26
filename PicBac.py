@@ -1,10 +1,13 @@
+# PicBac
+# Steven Hanna
+
 import os, sys, shutil, time
 
-# Constants
+# Constants for user to edit
 # The source file to scan
-source = "/Users/steventhanna/desktop"
+source = "EDIT_SOURCE"
 # The destination drive to copy
-destination = "/Volumes/UNTITLED"
+destination = "EDIT_DESTINATION"
 
 # File counter
 fileCounter = 0;
