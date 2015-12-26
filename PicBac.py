@@ -2,25 +2,21 @@ import os, sys, shutil, time
 
 # Constants
 # The source file to scan
-source = "/Users/steventhanna/desktop/work"
+source = "/Users/steventhanna/desktop"
 # The destination drive to copy
-destination = "/Users/steventhanna/desktop/testing"
+destination = "/Volumes/UNTITLED"
 
 # File counter
 fileCounter = 0;
 
 
 def main():
-
-    # Open a file
-    path = "/Users/steventhanna/desktop"
-    dirs = os.listdir(source)
-    walkAndCopy(source)
-
-    # This would print all the files and directories
-    # for file in dirs:
-        # print file
-
+    # Make sure destination is available
+    if os.path.exists(destination):
+        dirs = os.listdir(source)
+        walkAndCopy(source)
+    else:
+        print "DESTINATION NOT ACCESSIBLE"
 
 
 def walkAndCopy(folder):
@@ -34,6 +30,7 @@ def walkAndCopy(folder):
 
 def copyFile(src, dest):
     # Check if the file already exists
+    global fileCounter
     if os.path.isfile(dest) == True:
         # Determine last modified date
         destMod = time.ctime(os.path.getmtime(dest))
@@ -42,28 +39,11 @@ def copyFile(src, dest):
             # The src file is the newest file
             # Copy the src file to the destination file
             shutil.copyfile(src, dest)
-            global fileCounter
+
             fileCounter += 1
             print "Amount of Files Copied: ", fileCounter
-        #
-        # # Ask the user what to do
-        # fileArr = dest.split("/")
-        # print "The file: " + fileArr[len(fileArr) - 1] + " already has been copied onto the drive."
-        # print "1. Replace File 2. Keep Both Files"
-        # response = raw_input()
-        # if response == "1":
-        #     shutil.copyfile(src, dest)
-        #     global fileCounter
-        #     fileCounter += 1
-        #     print "Amount of Files Copied: ", fileCounter
-        # elif response == "2":
-        #     copyFile(src, dest + "_copy")
-        # else:
-        #     print "Invalid input."
-        #     copyFile(src, dest)
     else:
         shutil.copyfile(src, dest)
-        global fileCounter
         fileCounter += 1
         print "Amount of Files Copied: ", fileCounter
 
