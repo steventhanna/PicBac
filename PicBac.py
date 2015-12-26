@@ -1,4 +1,4 @@
-import os, sys, shutil
+import os, sys, shutil, time
 
 # Constants
 # The source file to scan
@@ -35,21 +35,32 @@ def walkAndCopy(folder):
 def copyFile(src, dest):
     # Check if the file already exists
     if os.path.isfile(dest) == True:
-        # Ask the user what to do
-        fileArr = dest.split("/")
-        print "The file: " + fileArr[len(fileArr) - 1] + " already has been copied onto the drive."
-        print "1. Replace File 2. Keep Both Files"
-        response = raw_input()
-        if response == "1":
+        # Determine last modified date
+        destMod = time.ctime(os.path.getmtime(dest))
+        srcMod = time.ctime(os.path.getmtime(src))
+        if srcMod < destMod:
+            # The src file is the newest file
+            # Copy the src file to the destination file
             shutil.copyfile(src, dest)
             global fileCounter
             fileCounter += 1
             print "Amount of Files Copied: ", fileCounter
-        elif response == "2":
-            copyFile(src, dest + "_copy")
-        else:
-            print "Invalid input."
-            copyFile(src, dest)
+        #
+        # # Ask the user what to do
+        # fileArr = dest.split("/")
+        # print "The file: " + fileArr[len(fileArr) - 1] + " already has been copied onto the drive."
+        # print "1. Replace File 2. Keep Both Files"
+        # response = raw_input()
+        # if response == "1":
+        #     shutil.copyfile(src, dest)
+        #     global fileCounter
+        #     fileCounter += 1
+        #     print "Amount of Files Copied: ", fileCounter
+        # elif response == "2":
+        #     copyFile(src, dest + "_copy")
+        # else:
+        #     print "Invalid input."
+        #     copyFile(src, dest)
     else:
         shutil.copyfile(src, dest)
         global fileCounter
