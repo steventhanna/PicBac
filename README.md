@@ -10,7 +10,9 @@ For speed reasons, PicBac only backs up files that meet the following criteria
 - The file is one of the following: `png, jpg, jpeg, gif, tiff`
 - The file to be backed up is newer than the file on the disk
 
-## Usage
+## Installation
+First **clone** the project.
+
 Please note the following lines in `PicBac.py`
 
 ```python
@@ -26,4 +28,36 @@ The `source` variable and the `destination` variable are what should be changed 
 - `destination` - where the images to be backed up will be copied too
 
 It's pretty straightforward.
+
+## Usage
+There are two methods that I forsee this being used.
+
+### Manually
+Navigate in your preferred CLI to wherever your project is located.
+
+```bash
+python PicBac.py
+```
+
+### As a CRON Job 
+Although my end user was on OSX, this can be adopted to other Unix canidates
+
+The content below os specific to OSX
+#### Open the CRON File
+Use your editor of choice... Mine is [Atom](http://atom.io).
+```bash
+env EDITOR=atom crontab -e
+```
+where `atom` can be replaced with `vim`, `nano`, `emacs`, etc.
+
+#### Timing Sequence
+The timing sequence of a CRON job looks like this: 
+`* * * * *`
+- The first asterisk is for specifying the minute of the run (0-59)
+- The second asterisk is for specifying the hour of the run (0-23)
+- The third asterisk is for specifying the day of the month for the run (1-31)
+- The fourth asterisk is for specifying the month of the run (1-12)
+- The fifth asterisk is for specifying the day of the week (where Sunday is equal to 0, up to Saturday is equal to 6)
+
+If I wanted to run the job every day at 1:00pm: 
 
