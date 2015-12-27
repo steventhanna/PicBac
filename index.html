@@ -25,6 +25,11 @@
 <p>Automatically back up photos to an external drive</p>
 
 <h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Please see the <a href="https://github.com/steventhanna/PicBac/blob/master/LICENSE">license</a>.</p>
+
+<h2>
 <a id="purpose" class="anchor" href="#purpose" aria-hidden="true"><span class="octicon octicon-link"></span></a>Purpose</h2>
 
 <p>Becuase my Dad was frustrated with the buggy iCloud Photos backup, I created PicBac to automatically back up photos in a given directory to an external hard drive.</p>
@@ -52,7 +57,7 @@ source <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</sp
 <span class="pl-c"># The destination drive to copy</span>
 destination <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>EDIT_DESTINATION<span class="pl-pds">"</span></span></pre></div>
 
-<p>The <code>source</code> variable and the <code>destination</code> variable are what should be changed from machine to machine. </p>
+<p>The <code>source</code> variable and the <code>destination</code> variable are what should be changed from machine to machine.</p>
 
 <ul>
 <li>
@@ -78,6 +83,8 @@ destination <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">
 <h3>
 <a id="as-a-cron-job" class="anchor" href="#as-a-cron-job" aria-hidden="true"><span class="octicon octicon-link"></span></a>As a CRON Job</h3>
 
+<p><strong>NOTE: I been unable to get custom CRON job's to operate correctly on my machine.  Try below at your own risk.  I am looking into <code>launchd</code></strong></p>
+
 <p>Although my end user was on OSX, this can be adopted to other Unix canidates</p>
 
 <p>The content below os specific to OSX</p>
@@ -96,8 +103,7 @@ destination <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">
 
 <p><a href="http://www.techradar.com/us/how-to/computing/apple/terminal-101-creating-cron-jobs-1305651"><strong>Reference Article</strong></a></p>
 
-<p>The timing sequence of a CRON job looks like this: 
-<code>* * * * *</code></p>
+<p>The timing sequence of a CRON job looks like this: <code>* * * * *</code></p>
 
 <ul>
 <li>The first asterisk is for specifying the minute of the run (0-59)</li>
@@ -107,19 +113,15 @@ destination <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">
 <li>The fifth asterisk is for specifying the day of the week (where Sunday is equal to 0, up to Saturday is equal to 6)</li>
 </ul>
 
-<p>If you wanted to run the job every day at 1:00pm: 
-<code>0 13 * * *</code></p>
+<p>If you wanted to run the job every day at 1:00pm: <code>0 13 * * *</code></p>
 
-<p>If you wanted the job to run every 30 minutes, you could use the following sequence:
-<code>30 * * * *</code></p>
+<p>If you wanted the job to run every 30 minutes, you could use the following sequence: <code>30 * * * *</code></p>
 
-<p>And, lastly, if you wanted the job to run once a week on Wednesday, you could type the following sequence:
-<code>* * * * 3</code></p>
+<p>And, lastly, if you wanted the job to run once a week on Wednesday, you could type the following sequence: <code>* * * * 3</code></p>
 
 <p>Becuase PicBac only transfers files if the specified path exists, an external drive can be set.  When the external drive is not found, no errors are thrown, it will just try again at the next designated time.</p>
 
-<p>In my Dad's case, I have it configured to run once a day, at 12am.
-<code>0 0 * * *</code></p>
+<p>In my Dad's case, I have it configured to run once a day, at 12am. <code>0 0 * * *</code></p>
 
 <h4>
 <a id="save-cron-file" class="anchor" href="#save-cron-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Save CRON File</h4>
@@ -129,9 +131,16 @@ destination <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">
 <h4>
 <a id="verify-cron-job" class="anchor" href="#verify-cron-job" aria-hidden="true"><span class="octicon octicon-link"></span></a>Verify CRON Job</h4>
 
-<p>To verify the existance of the CRON job: </p>
+<p>To verify the existance of the CRON job:</p>
 
 <div class="highlight highlight-source-shell"><pre>crontab -l</pre></div>
+
+<h2>
+<a id="contributing--issues" class="anchor" href="#contributing--issues" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing / Issue's</h2>
+
+<p>If you find any issues, please report them on this repo's issue <a href="https://github.com/steventhanna/PicBac/issues">page</a>.</p>
+
+<p>Pull requests to make this software even better are always welcome.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/steventhanna/PicBac">PicBac</a> is maintained by <a href="https://github.com/steventhanna">steventhanna</a>.</span>
