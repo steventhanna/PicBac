@@ -43,7 +43,6 @@ python PicBac.py
 ```
 
 ### As a CRON Job
-**NOTE: I been unable to get custom CRON job's to operate correctly on my machine.  Try below at your own risk.  I am looking into `launchd`**
 
 Although my end user was on OSX, this can be adopted to other Unix canidates
 
