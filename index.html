@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>PicBac by steventhanna</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">PicBac</h1>
+      <h2 class="project-tagline">Automatically back up photos to an external drive</h2>
+      <a href="https://github.com/steventhanna/PicBac" class="btn">View on GitHub</a>
+      <a href="https://github.com/steventhanna/PicBac/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/steventhanna/PicBac/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="picbac" class="anchor" href="#picbac" aria-hidden="true"><span class="octicon octicon-link"></span></a>PicBac</h1>
+
+<p>Automatically back up photos to an external drive</p>
+
+<h2>
+<a id="purpose" class="anchor" href="#purpose" aria-hidden="true"><span class="octicon octicon-link"></span></a>Purpose</h2>
+
+<p>Becuase my Dad was frustrated with the buggy iCloud Photos backup, I created PicBac to automatically back up photos in a given directory to an external hard drive.</p>
+
+<p>PicBac works best nested insidea CRON job, as it allow PicBac to run at a constant interval, whenever the user pleases.</p>
+
+<p>For speed reasons, PicBac only backs up files that meet the following criteria</p>
+
+<ul>
+<li>The file is one of the following: <code>png, jpg, jpeg, gif, tiff</code>
+</li>
+<li>The file to be backed up is newer than the file on the disk</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>First <strong>clone</strong> the project.</p>
+
+<p>Please note the following lines in <code>PicBac.py</code></p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-c"># Constants for user to edit</span>
+<span class="pl-c"># The source file to scan</span>
+source <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>EDIT_SOURCE<span class="pl-pds">"</span></span>
+<span class="pl-c"># The destination drive to copy</span>
+destination <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>EDIT_DESTINATION<span class="pl-pds">"</span></span></pre></div>
+
+<p>The <code>source</code> variable and the <code>destination</code> variable are what should be changed from machine to machine. </p>
+
+<ul>
+<li>
+<code>source</code> - the file tree to walk, searcing for images to backup</li>
+<li>
+<code>destination</code> - where the images to be backed up will be copied too</li>
+</ul>
+
+<p>It's pretty straightforward.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>There are two methods that I forsee this being used.</p>
+
+<h3>
+<a id="manually" class="anchor" href="#manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>Manually</h3>
+
+<p>Navigate in your preferred CLI to wherever your project is located.</p>
+
+<div class="highlight highlight-source-shell"><pre>python PicBac.py</pre></div>
+
+<h3>
+<a id="as-a-cron-job" class="anchor" href="#as-a-cron-job" aria-hidden="true"><span class="octicon octicon-link"></span></a>As a CRON Job</h3>
+
+<p>Although my end user was on OSX, this can be adopted to other Unix canidates</p>
+
+<p>The content below os specific to OSX</p>
+
+<h4>
+<a id="open-the-cron-file" class="anchor" href="#open-the-cron-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Open the CRON File</h4>
+
+<p>Use your editor of choice... Mine is <a href="http://atom.io">Atom</a>.</p>
+
+<div class="highlight highlight-source-shell"><pre>env EDITOR=atom crontab -e</pre></div>
+
+<p>where <code>atom</code> can be replaced with <code>vim</code>, <code>nano</code>, <code>emacs</code>, etc.</p>
+
+<h4>
+<a id="timing-sequence" class="anchor" href="#timing-sequence" aria-hidden="true"><span class="octicon octicon-link"></span></a>Timing Sequence</h4>
+
+<p><a href="http://www.techradar.com/us/how-to/computing/apple/terminal-101-creating-cron-jobs-1305651"><strong>Reference Article</strong></a></p>
+
+<p>The timing sequence of a CRON job looks like this: 
+<code>* * * * *</code></p>
+
+<ul>
+<li>The first asterisk is for specifying the minute of the run (0-59)</li>
+<li>The second asterisk is for specifying the hour of the run (0-23)</li>
+<li>The third asterisk is for specifying the day of the month for the run (1-31)</li>
+<li>The fourth asterisk is for specifying the month of the run (1-12)</li>
+<li>The fifth asterisk is for specifying the day of the week (where Sunday is equal to 0, up to Saturday is equal to 6)</li>
+</ul>
+
+<p>If you wanted to run the job every day at 1:00pm: 
+<code>0 13 * * *</code></p>
+
+<p>If you wanted the job to run every 30 minutes, you could use the following sequence:
+<code>30 * * * *</code></p>
+
+<p>And, lastly, if you wanted the job to run once a week on Wednesday, you could type the following sequence:
+<code>* * * * 3</code></p>
+
+<p>Becuase PicBac only transfers files if the specified path exists, an external drive can be set.  When the external drive is not found, no errors are thrown, it will just try again at the next designated time.</p>
+
+<p>In my Dad's case, I have it configured to run once a day, at 12am.
+<code>0 0 * * *</code></p>
+
+<h4>
+<a id="save-cron-file" class="anchor" href="#save-cron-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Save CRON File</h4>
+
+<p>Save the CRON file per your editors specifications</p>
+
+<h4>
+<a id="verify-cron-job" class="anchor" href="#verify-cron-job" aria-hidden="true"><span class="octicon octicon-link"></span></a>Verify CRON Job</h4>
+
+<p>To verify the existance of the CRON job: </p>
+
+<div class="highlight highlight-source-shell"><pre>crontab -l</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/steventhanna/PicBac">PicBac</a> is maintained by <a href="https://github.com/steventhanna">steventhanna</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
